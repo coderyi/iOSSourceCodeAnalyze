@@ -1,0 +1,537 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>FLEX · iOS开源库源码分析</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="coderyi">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../KSCrash/KSCrash.html" />
+    
+    
+    <link rel="prev" href="../SGDownload/SGDownload.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    iOS开源库源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../AFNetworking/AFNetworking.html">
+            
+                <a href="../AFNetworking/AFNetworking.html">
+            
+                    
+                    AFNetworking
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../SDWebImage/SDWebImage.html">
+            
+                <a href="../SDWebImage/SDWebImage.html">
+            
+                    
+                    SDWebImage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../GCDAsyncSocket/GCDAsyncSocket.html">
+            
+                <a href="../GCDAsyncSocket/GCDAsyncSocket.html">
+            
+                    
+                    GCDAsyncSocket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../SGDownload/SGDownload.html">
+            
+                <a href="../SGDownload/SGDownload.html">
+            
+                    
+                    SGDownload
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6" data-path="FLEX.html">
+            
+                <a href="FLEX.html">
+            
+                    
+                    FLEX
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../KSCrash/KSCrash.html">
+            
+                <a href="../KSCrash/KSCrash.html">
+            
+                    
+                    KSCrash
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../ReactiveCocoa/ReactiveCocoa.html">
+            
+                <a href="../ReactiveCocoa/ReactiveCocoa.html">
+            
+                    
+                    ReactiveCocoa
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../TransitionKit/TransitionKit.html">
+            
+                <a href="../TransitionKit/TransitionKit.html">
+            
+                    
+                    TransitionKit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../WebViewJavascriptBridge/WebViewJavascriptBridge.html">
+            
+                <a href="../WebViewJavascriptBridge/WebViewJavascriptBridge.html">
+            
+                    
+                    WebViewJavascriptBridge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../react-native/react-native.html">
+            
+                <a href="../react-native/react-native.html">
+            
+                    
+                    react-native
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >FLEX</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="ios-&#x5F00;&#x6E90;&#x5E93;&#x6E90;&#x7801;&#x5206;&#x6790;&#x4E4B;flex">iOS &#x5F00;&#x6E90;&#x5E93;&#x6E90;&#x7801;&#x5206;&#x6790;&#x4E4B;FLEX</h1>
+<p>&#x672C;&#x6587;&#x57FA;&#x4E8E;<a href="https://github.com/Flipboard/FLEX" target="_blank">FLEX 2.4.0</a></p>
+<p>FLEX &#x662F;&#x6742;&#x5FD7;&#x5E94;&#x7528;&#x516C;&#x53F8; Flipboard &#x51FA;&#x54C1;&#x7684;&#x4E00;&#x4E2A; App &#x5185;&#x8C03;&#x8BD5;&#x7684;&#x5DE5;&#x5177;&#x3002;</p>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x8BA8;&#x8BBA; FLEX &#x600E;&#x4E48;&#x505A;&#x5230;&#x7684;&#x7F51;&#x7EDC;&#x76D1;&#x542C;&#xFF0C;FileBrowser &#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x8DEF;&#xFF0C;FLEX &#x600E;&#x4E48;&#x83B7;&#x53D6;&#x5230;&#x5806;&#x4E0A;&#x5BF9;&#x8C61;&#x5E76;&#x4E14;&#x5C55;&#x793A;&#x51FA;&#x6765;&#xFF0C;&#x7ED8;&#x5236;&#x51FA;&#x6574;&#x4E2A; App &#x7684;&#x89C6;&#x56FE;&#x5C42;&#x7EA7;&#xFF0C;FLEX &#x5173;&#x4E8E; runtime &#x7684;&#x8FD0;&#x7528;&#x3002;</p>
+<h3 id="network">Network</h3>
+<p>Network &#x90E8;&#x5206;&#x4E3B;&#x8981;&#x662F;&#x76D1;&#x542C;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x76F8;&#x5173;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x8981;&#x76D1;&#x542C;&#x8BF7;&#x6C42;&#x76F8;&#x5173;&#x7684;&#x56DE;&#x8C03;&#xFF0C;&#x6709;&#x4E24;&#x79CD;&#x529E;&#x6CD5;</p>
+<ul>
+<li>&#x4E00;&#x662F;&#x4F7F;&#x7528; NSURLProtocol &#x4EE3;&#x7406;&#x8BF7;&#x6C42;&#x56DE;&#x8C03;</li>
+<li>&#x4E8C;&#x662F;&#x5982; FLEX &#x6240;&#x4F7F;&#x7528;&#x7684; hook NSURLConnection &#x548C; NSURLSession &#x7684;&#x4EE3;&#x7406;&#x65B9;&#x6CD5;&#x3002;&#x76EE;&#x524D;&#x6765;&#x8BB2;&#x666E;&#x904D;&#x90FD;&#x662F; hook &#x67D0;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x60F3;&#x8981; hook &#x4E00;&#x4E2A; protocol &#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x91CC;&#x662F;&#x901A;&#x8FC7;&#x5BFB;&#x627E;&#x5DE5;&#x7A0B;&#x91CC;&#x9762;&#x6240;&#x6709;&#x5B9E;&#x73B0;&#x4E86; protocol &#x7684;&#x7C7B;&#xFF0C;&#x7136;&#x540E;&#x518D; hook &#x8FD9;&#x4E9B;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x8C13;&#x53E6;&#x8F9F;&#x8E4A;&#x5F84;&#x3002;</li>
+</ul>
+<p>&#x4E00;&#x4E2A; App &#x5185;&#x8BF7;&#x6C42;&#x7684;&#x6570;&#x636E;&#x91CF;&#x8FD8;&#x662F;&#x6BD4;&#x8F83;&#x5927;&#xFF0C;&#x6240;&#x4EE5;&#x53EA;&#x8003;&#x8651;&#x628A;&#x8BF7;&#x6C42;&#x7684;&#x6570;&#x636E;&#x4FDD;&#x5B58;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#xFF0C;&#x8FD9;&#x91CC;&#x662F;&#x4E00;&#x4E2A;&#x5355;&#x4F8B;&#x7C7B; FLEXNetworkRecorder &#x6765;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x7684;&#x76F8;&#x5173;&#x5904;&#x7406;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A; model &#x7C7B; FLEXNetworkTransaction&#x3002;&#x4E3A;&#x4E86;&#x8FBE;&#x5230;&#x6570;&#x636E;&#x4E0E;&#x754C;&#x9762;&#x5206;&#x79BB;&#x7684;&#x6548;&#x679C;&#xFF0C;&#x8FD9;&#x91CC;&#x5F53;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x65F6;&#x91C7;&#x7528;&#x7684;&#x662F; NSNotification &#x6765;&#x901A;&#x77E5;&#x754C;&#x9762;&#x3002;&#x76EE;&#x524D;&#x8BF7;&#x6C42;&#x5904;&#x7406;&#x4EFB;&#x52A1;&#x662F;&#x653E;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#xFF0C;&#x7531;&#x4E8E;&#x901A;&#x77E5;&#x662F;&#x540C;&#x6B65;&#x7684;&#x5E76;&#x4E14;&#x63A5;&#x6536;&#x65B9;&#x662F;&#x7528;&#x6765;&#x66F4;&#x65B0;&#x754C;&#x9762;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x4F1A;&#x628A;&#x53D1;&#x9001;&#x901A;&#x77E5;&#x4E8B;&#x4EF6;&#x5207;&#x6362;&#x5230;&#x4E3B;&#x7EBF;&#x7A0B;&#x3002;</p>
+<p>FLEX &#x63D0;&#x4F9B;&#x4E86;&#x6293;&#x53D6;&#x5230;&#x8BF7;&#x6C42;&#x4E4B;&#x540E;&#xFF0C;&#x63D0;&#x4F9B; copy url &#x7684;&#x529F;&#x80FD;&#xFF0C;&#x5B9E;&#x73B0;&#x5728; FLEXNetworkCurlLogger &#x4E2D;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x628A; NSURLRequest &#x62FC;&#x63A5;&#x5904; curl &#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5982;&#x4E0B;</p>
+<pre>
+curl -v -X GET &apos;http://www.google.co.uk/?gfe_rd=cr&amp;dcr=0&amp;ei=LZ2jWpKCEYzR8gf5yrSQCQ&apos; -H &apos;Accept-Encoding: gzip, deflate&apos; -H &apos;Accept: */*&apos; -H &apos;Accept-Language: en-us&apos; -H &apos;Cookie: 1P_JAR=2018-03-10-08; NID=125=HP2nIQkOz_aVYIzH3zrKicXoGyAQSquxoDjOVBZoPyO2sD8dxbYcHVOHkrYwLLOI9YVGFu66TVHZT77kHzTJXNxCVrO50KtKNv4nuGlszsGweCLvorszOnGZHPtWnArU;&apos;
+</pre>
+
+<p><a href="https://curl.haxx.se/" target="_blank">curl</a>&#x662F;&#x4E00;&#x4E2A;&#x652F;&#x6301;&#x5404;&#x79CD;&#x7F51;&#x7EDC;&#x534F;&#x8BAE;&#x7684;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;&#x3002;</p>
+<p>-v/--verbose &#x8868;&#x793A;&#x83B7;&#x53D6;&#x66F4;&#x591A;&#x7684;&#x8FDE;&#x63A5;&#x4FE1;&#x606F;</p>
+<p>-X GET &#x7528;&#x6765;&#x9009;&#x5B9A;&#x65B9;&#x6CD5;</p>
+<p>-H &#x7528;&#x6765;&#x6DFB;&#x52A0;&#x8BF7;&#x6C42;&#x5934;</p>
+<p>-d/--data &#x662F; POST &#x8BF7;&#x6C42;&#x7684; application/x-www-url-encoded &#x65B9;&#x5F0F;&#x7684; body &#x6570;&#x636E;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x5904;&#x7406;&#x56DE;&#x8C03;&#x8FD9;&#x91CC;&#x4E5F;&#x6709;&#x4E00;&#x4E2A;&#x65B0;&#x601D;&#x8DEF;&#xFF0C;&#x4E00;&#x4E2A; UITableViewCell &#x7684;&#x70B9;&#x51FB;&#x4ECE; didSelectRowAtIndexPath &#x4E2D;&#x79FB;&#x5230;&#x4E86; ViewModel &#x8FD9;&#x4E00;&#x5C42;&#x5904;&#x7406;&#xFF0C;&#x5E76;&#x4E14;&#x662F;&#x628A;&#x8FD9;&#x4E2A;&#x5904;&#x7406;&#x4F7F;&#x7528; block &#x5C5E;&#x6027;&#x7684;&#x65B9;&#x5F0F;&#x8D4B;&#x4E88;&#x6BCF;&#x4E2A; ViewModel &#x81EA;&#x5DF1;&#x5904;&#x7406;&#x3002;</p>
+<pre><code class="lang-objc">FLEXNetworkDetailRow *requestURLRow = [[FLEXNetworkDetailRow alloc] init];
+requestURLRow.title = <span class="hljs-string">@&quot;Request URL&quot;</span>;
+<span class="hljs-built_in">NSURL</span> *url = transaction.request.URL;
+requestURLRow.detailText = url.absoluteString;
+requestURLRow.selectionFuture = ^{
+<span class="hljs-built_in">UIViewController</span> *urlWebViewController = [[FLEXWebViewController alloc] initWithURL:url];
+urlWebViewController.title = url.absoluteString;
+<span class="hljs-keyword">return</span> urlWebViewController;
+};
+[rows addObject:requestURLRow];
+</code></pre>
+<p>FLEX &#x8BA1;&#x7B97;&#x6D41;&#x91CF;&#x662F;&#x901A;&#x8FC7;&#x628A;&#x6240;&#x6709;&#x8BF7;&#x6C42; response data &#x7684;&#x5927;&#x5C0F;&#x52A0;&#x8D77;&#x6765;,&#x4E0D;&#x8FC7; FLEX &#x53EA;&#x7EDF;&#x8BA1; response&#xFF0C;&#x6CA1;&#x6709;&#x7EDF;&#x8BA1; request&#xFF0C;&#x5E76;&#x4E14;&#x53EA;&#x7EDF;&#x8BA1; body &#x6CA1;&#x6709;&#x7EDF;&#x8BA1; header&#xFF0C;&#x6240;&#x4EE5;&#x6570;&#x636E;&#x662F;&#x4E0D;&#x51C6;&#x786E;&#x7684;&#x3002;</p>
+<p>NSCache &#x57FA;&#x672C;&#x4E0A;&#x5C31;&#x662F;&#x8DDF; NSMutableDictionary &#x7C7B;&#x4F3C;&#xFF0C;&#x552F;&#x4E00;&#x4E0D;&#x540C;&#x7684;&#x662F;&#x5B83;&#x4F1A;&#x81EA;&#x52A8;&#x91CA;&#x653E;&#x5185;&#x5B58;&#xFF0C;FLEX &#x4F7F;&#x7528; NSCache &#x6765;&#x4FDD;&#x5B58; response data&#x3002;</p>
+<h3 id="filebrowser">FileBrowser</h3>
+<p>&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;(Adapter Pattern) &#xFF1A;&#x5C06;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x8F6C;&#x6362;&#x6210;&#x5BA2;&#x6237;&#x5E0C;&#x671B;&#x7684;&#x53E6;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#x4F7F;&#x63A5;&#x53E3;&#x4E0D;&#x517C;&#x5BB9;&#x7684;&#x90A3;&#x4E9B;&#x7C7B;&#x53EF;&#x4EE5;&#x4E00;&#x8D77;&#x5DE5;&#x4F5C;&#x3002;</p>
+<p>&#x91CC;&#x9762;&#x6709; Target&#xFF0C;Adapter&#xFF0C;Adaptee&#x3002;</p>
+<p>Target &#x5C31;&#x662F;&#x76EE;&#x6807;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x91CC;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#x5B9A;&#x4E49;&#x7684;&#x534F;&#x8BAE;&#xFF0C;FLEXFileBrowserFileOperationController&#x3002;</p>
+<p>Adaptee &#x5C31;&#x662F;&#x9002;&#x914D;&#x8005;&#xFF0C;&#x5B9E;&#x9645;&#x8981;&#x8BBF;&#x95EE;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x662F; NSFileManager &#x7684;&#x5220;&#x9664;&#x6216;&#x79FB;&#x52A8;&#x3002;</p>
+<p>Adapter &#x5C31;&#x662F;&#x9002;&#x914D;&#x5668;&#xFF0C;&#x5C31;&#x662F;FLEXFileBrowserFileDeleteOperationController&#xFF0C;FLEXFileBrowserFileRenameOperationController&#xFF0C;&#x8BBF;&#x95EE;FLEXFileBrowserFileOperationController &#x534F;&#x8BAE;&#x5C31;&#x80FD;&#x8BBF;&#x95EE; NSFileManager &#x7684;&#x64CD;&#x4F5C;</p>
+<p><img src="https://raw.githubusercontent.com/coderyi/blog/master/sourcecodeproject/FLEX/FLEXFileBrowserFileOperationController.png" alt="FLEXFileBrowserFileOperationController"></p>
+<p>&#x67E5;&#x8BE2; FileManager &#x7684; path &#x6216;&#x8005;&#x6587;&#x4EF6;&#x56E0;&#x4E3A;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x628A;&#x64CD;&#x4F5C;&#x653E;&#x5165;NSOperation&#xFF0C;&#x81EA;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A; Operation&#xFF0C;&#x5B9E;&#x73B0; main &#x65B9;&#x6CD5;&#xFF0C;&#x7136;&#x540E;&#x52A0;&#x5165; NSOperationQueue&#x3002;</p>
+<h3 id="databasebrowser">DatabaseBrowser</h3>
+<p>FLEXSQLiteDatabaseManager &#x5BF9;&#x4E8E; SQLite &#x7684;&#x64CD;&#x4F5C;&#x662F;&#x4E00;&#x4E2A;&#x7B80;&#x5316;&#x7248;&#x7684; fmdb&#xFF0C;&#x53BB;&#x9664;&#x4E86; GCD &#x961F;&#x5217;&#x7684;&#x7BA1;&#x7406;&#xFF0C;&#x4E3B;&#x8981;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x67E5;&#x8BE2;&#x6570;&#x636E;&#x5E93;&#x3002;</p>
+<p>FLEXRealmDatabaseManager &#x662F;&#x5B9E;&#x73B0;&#x80FD;&#x591F;&#x8BFB;&#x53D6; Realm &#x6570;&#x636E;&#x5E93;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;&#x5B9E;&#x73B0;&#x5E76;&#x6CA1;&#x6709;&#x5F15;&#x5165; Realm &#x5E93;&#xFF0C;&#x9996;&#x5148;&#x901A;&#x8FC7;</p>
+<pre><code class="lang-objc"><span class="hljs-meta">#if __has_include(<span class="hljs-meta-string">&lt;Realm/Realm.h&gt;</span>)</span>
+<span class="hljs-meta">#else</span>
+<span class="hljs-meta">#endif</span>
+</code></pre>
+<p>&#x6765;&#x5224;&#x65AD;&#x60F3;&#x8981;&#x5F15;&#x5165;&#x7684;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#x5C31; FLEXRealmDefines &#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x5806; Realm &#x7684; class&#xFF0C;&#x5E76;&#x4E14;&#x4E0D;&#x5B9E;&#x73B0;&#xFF0C;&#x7136;&#x540E;&#x5C31;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x4E0D;&#x5F15;&#x5165;&#x4E00;&#x4E2A;&#x5E93;&#x800C;&#x7F16;&#x8BD1;&#x901A;&#x8FC7;&#x3002;</p>
+<h3 id="heap-objects">Heap Objects</h3>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x5217;&#x8868; FLEXLiveObjectsTableViewController &#x662F;&#x8FD4;&#x56DE;&#x6240;&#x6709;&#x6CE8;&#x518C;&#x7684;&#x7C7B;&#xFF0C;&#x8FD9;&#x4E2A;&#x901A;&#x8FC7; objc_copyClassList &#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5230;&#x3002; </p>
+<p>&#x53E6;&#x5916;&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x8FD8;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5230;&#x5806;&#x4E0A;&#x7684;&#x6240;&#x6709;&#x5B9E;&#x4F8B;</p>
+<pre><code class="lang-objc"><span class="hljs-comment">// Inspired by:</span>
+<span class="hljs-comment">// http://llvm.org/svn/llvm-project/lldb/tags/RELEASE_34/final/examples/darwin/heap_find/heap/heap_find.cpp</span>
+<span class="hljs-comment">// https://gist.github.com/samdmarshall/17f4e66b5e2e579fd396</span>
+
+vm_address_t *zones = <span class="hljs-literal">NULL</span>;
+<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> zoneCount = <span class="hljs-number">0</span>;
+kern_return_t result = malloc_get_all_zones(TASK_NULL, reader, &amp;zones, &amp;zoneCount);
+
+<span class="hljs-keyword">if</span> (result == KERN_SUCCESS) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; zoneCount; i++) {
+        malloc_zone_t *zone = (malloc_zone_t *)zones[i];
+        <span class="hljs-keyword">if</span> (zone-&gt;introspect &amp;&amp; zone-&gt;introspect-&gt;enumerator) {
+            zone-&gt;introspect-&gt;enumerator(TASK_NULL, (__bridge <span class="hljs-keyword">void</span> *)block, MALLOC_PTR_IN_USE_RANGE_TYPE, (vm_address_t)zone, reader, &amp;range_callback);
+        }
+    }
+}
+</code></pre>
+<p>&#x6240;&#x4EE5; FLEX &#x624D;&#x53EF;&#x4EE5;&#x663E;&#x793A;&#x6240;&#x6709;&#x6CE8;&#x518C;&#x7684;&#x7C7B;&#x5E76;&#x4E14;&#x663E;&#x793A;&#x8BE5;&#x7C7B;&#x6240;&#x6709;&#x7684;&#x5B9E;&#x4F8B;&#x3002;</p>
+<p>&#x5728;&#x6253;&#x5F00;&#x5177;&#x4F53;&#x67D0;&#x4E2A;&#x5B9E;&#x4F8B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8FD9;&#x91CC;&#x8FD0;&#x7528;&#x4E86;&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x3002;</p>
+<p>&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x7684;&#x53C2;&#x4E0E;&#x8005;</p>
+<p>Factory&#xFF1A;&#x5DE5;&#x5382;&#x89D2;&#x8272;&#xFF0C;&#x63A5;&#x6536;&#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#xFF0C;&#x901A;&#x8FC7;&#x8BF7;&#x6C42;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x7684;&#x4EA7;&#x54C1;&#x5BF9;&#x8C61;</p>
+<p>Abstract Product&#xFF1A;&#x62BD;&#x8C61;&#x4EA7;&#x54C1;&#x89D2;&#x8272;&#xFF0C;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x7684;&#x7236;&#x7C7B;</p>
+<p>Concrete Product&#xFF1A;&#x5177;&#x4F53;&#x4EA7;&#x54C1;&#x89D2;&#x8272;&#xFF0C;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x521B;&#x5EFA;&#x7684;&#x5BF9;&#x8C61;</p>
+<p>&#x5176;&#x5B9E;UIButton&#x901A;&#x8FC7;</p>
+<pre><code class="lang-objc">+ (instancetype)buttonWithType:(<span class="hljs-built_in">UIButtonType</span>)buttonType;
+</code></pre>
+<p>&#x521B;&#x5EFA;&#x5C31;&#x662F;&#x7B80;&#x5355;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;</p>
+<p><img src="https://raw.githubusercontent.com/coderyi/blog/master/sourcecodeproject/FLEX/FLEXObjectExplorerFactory.png" alt=""></p>
+<p>&#x8FD9;&#x91CC;&#x7EFC;&#x5408;&#x524D;&#x9762;&#x8BF4;&#x5230;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#xFF0C;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#x4E3B;&#x8981;&#x662F;&#x89E3;&#x51B3;&#x63A5;&#x53E3;&#x4E0D;&#x517C;&#x5BB9;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5C06;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x8F6C;&#x6362;&#x4E3A;&#x53E6;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x662F;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;&#x53C2;&#x6570;&#x8FD4;&#x56DE;&#x4E0D;&#x540C;&#x7684;&#x5B9E;&#x4F8B;&#x3002;</p>
+<h3 id="view-hierarchy">View Hierarchy</h3>
+<p>&#x5173;&#x4E8E;&#x83B7;&#x53D6;&#x6240;&#x6709;&#x7684; UIWindow &#x5B9E;&#x4F8B;&#xFF0C;&#x4F7F;&#x7528;&#x7684;&#x662F; UIWindow &#x7684;&#x79C1;&#x6709;&#x65B9;&#x6CD5;&#xFF0C;&quot;allWindowsIncludingInternalWindows:onlyVisibleWindows:&quot;&#xFF0C;&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;&#x907F;&#x5F00;&#x82F9;&#x679C;&#x68C0;&#x67E5;&#x7684;&#x529E;&#x6CD5;&#x5C31;&#x662F;&#xFF0C;&#x65B9;&#x6CD5;&#x901A;&#x8FC7;&#x6570;&#x7EC4;&#x7EC4;&#x88C5;&#x51FA;&#x6765;&#x7684;</p>
+<pre><code class="lang-objc"><span class="hljs-built_in">NSArray</span> *allWindowsComponents = @[<span class="hljs-string">@&quot;al&quot;</span>, <span class="hljs-string">@&quot;lWindo&quot;</span>, <span class="hljs-string">@&quot;wsIncl&quot;</span>, <span class="hljs-string">@&quot;udingInt&quot;</span>, <span class="hljs-string">@&quot;ernalWin&quot;</span>, <span class="hljs-string">@&quot;dows:o&quot;</span>, <span class="hljs-string">@&quot;nlyVisi&quot;</span>, <span class="hljs-string">@&quot;bleWin&quot;</span>, <span class="hljs-string">@&quot;dows:&quot;</span>];
+SEL allWindowsSelector = <span class="hljs-built_in">NSSelectorFromString</span>([allWindowsComponents componentsJoinedByString:<span class="hljs-string">@&quot;&quot;</span>]);
+</code></pre>
+<p>&#x4E00;&#x4E2A; UIView &#x7684;&#x5C42;&#x7EA7;&#x5219;&#x662F;&#x5DE7;&#x5999;&#x5730;&#x5FAA;&#x73AF;&#x5176; superView&#xFF0C;&#x6765;&#x83B7;&#x53D6;&#x5176;&#x5C42;&#x7EA7;&#xFF0C;&#x6700;&#x540E;&#x753B;&#x51FA;&#x6574;&#x4E2A; App &#x7684;&#x5C42;&#x7EA7;&#x56FE;&#x3002;</p>
+<p>&quot;select&quot;&#x529F;&#x80FD;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x4F1A;&#x628A; tap &#x4E0A;&#x6240;&#x6709;&#x7684; UIView &#x627E;&#x51FA;&#x6765;&#xFF0C;&#x529E;&#x6CD5;&#x662F; for &#x5FAA;&#x73AF;&#x6240;&#x6709;&#x7684; UIView&#xFF0C;&#x627E;&#x51FA;&#x5728;&#x5176; tap &#x8303;&#x56F4;&#x5185;&#x7684; UIView&#x3002;</p>
+<h3 id="flexwindow">FLEXWindow</h3>
+<p>&#x6253;&#x5F00; FLEX &#x754C;&#x9762;&#x662F;&#x5B9A;&#x4E49;&#x4E86;&#x4E00;&#x4E2A; UIWindow&#xFF0C;&#x7136;&#x540E;&#x628A;&#x5B83;&#x663E;&#x793A;&#x51FA;&#x6765;&#xFF0C;&#x4E0D;&#x8FC7;&#x7531;&#x4E8E; FLEX &#x6709;&#x4E00;&#x4E2A;&#x6D6E;&#x7A97;&#x5DE5;&#x5177;&#x680F;&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019; keyWindow &#x8FD8;&#x662F;&#x7CFB;&#x7EDF;&#x7684;&#xFF0C;&#x53EA;&#x6709;&#x5F53;&#x70B9;&#x51FB;&#x5DE5;&#x5177;&#x680F;&#x8FDB;&#x5165; FLEX &#x5168;&#x5C4F;&#x754C;&#x9762;&#x624D;&#x4F1A;&#x8BBE;&#x7F6E; keyWindow &#x800C;&#x63A5;&#x6536;&#x952E;&#x76D8;&#x4E8B;&#x4EF6;&#x3002;</p>
+<p>&#x9996;&#x5148;&#x91CD;&#x5199;&#x4E86;&#x89E6;&#x6478;&#x54CD;&#x5E94;&#x7684;&#x65B9;&#x6848;&#xFF0C;&#x4EE5;&#x5DE5;&#x5177;&#x680F;&#x4E3A;&#x4F8B;&#xFF0C;&#x5F53;&#x70B9;&#x51FB; FLEX &#x5DE5;&#x5177;&#x680F;&#x65F6;&#x5C31;&#x54CD;&#x5E94;&#xFF0C;&#x70B9;&#x51FB;&#x5176;&#x4ED6;&#x4F4D;&#x7F6E; FLEX &#x5C31;&#x4F1A;&#x4E0D;&#x54CD;&#x5E94;&#xFF0C;&#x800C;&#x4F20;&#x9012;&#x7ED9;&#x4E0B;&#x5C42;&#x7684; UIWindow&#x3002;</p>
+<pre><code class="lang-objc">- (<span class="hljs-built_in">BOOL</span>)pointInside:(<span class="hljs-built_in">CGPoint</span>)point withEvent:(nullable <span class="hljs-built_in">UIEvent</span> *)event;
+</code></pre>
+<h3 id="preview-image">preview image</h3>
+<p>FLEX &#x6709;&#x4E00;&#x4E2A;&#x9884;&#x89C8; UIView &#x5B9E;&#x4F8B;&#x753B;&#x9762;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x5B9E;&#x73B0;&#x673A;&#x5236;&#x5C31;&#x662F;&#x83B7;&#x53D6;&#x5230; UIView &#x5B9E;&#x4F8B;&#x4E4B;&#x540E;&#xFF0C;&#x628A;&#x5B83;&#x8F6C;&#x5316;&#x4E3A; UIImage &#x6765;&#x663E;&#x793A;&#x3002;</p>
+<pre><code class="lang-objc">+ (<span class="hljs-built_in">UIViewController</span> *)imagePreviewViewControllerForView:(<span class="hljs-built_in">UIView</span> *)view
+{
+    <span class="hljs-built_in">UIViewController</span> *imagePreviewViewController = <span class="hljs-literal">nil</span>;
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">CGRectIsEmpty</span>(view.bounds)) {
+        <span class="hljs-built_in">CGSize</span> viewSize = view.bounds.size;
+        <span class="hljs-built_in">UIGraphicsBeginImageContextWithOptions</span>(viewSize, <span class="hljs-literal">NO</span>, <span class="hljs-number">0.0</span>);
+        [view drawViewHierarchyInRect:<span class="hljs-built_in">CGRectMake</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, viewSize.width, viewSize.height) afterScreenUpdates:<span class="hljs-literal">YES</span>];
+        <span class="hljs-built_in">UIImage</span> *previewImage = <span class="hljs-built_in">UIGraphicsGetImageFromCurrentImageContext</span>();
+        <span class="hljs-built_in">UIGraphicsEndImageContext</span>();
+        imagePreviewViewController = [[FLEXImagePreviewViewController alloc] initWithImage:previewImage];
+    }
+    <span class="hljs-keyword">return</span> imagePreviewViewController;
+}
+</code></pre>
+<h3 id="flexruntimeutility">FLEXRuntimeUtility</h3>
+<p>&#x9996;&#x5148;&#x53EF;&#x4EE5;&#x770B;<a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" target="_blank">Classes and metaclasses</a>&#x4E2D;&#x7684;&#x4E00;&#x5F20;<a href="http://www.sealiesoftware.com/blog/class%20diagram.pdf" target="_blank">&#x56FE;</a></p>
+<p>&#x8FD9;&#x5F20;&#x56FE;&#x8868;&#x793A;&#x7684;&#x662F;&#x5BF9;&#x8C61;&#x7684;&#x5185;&#x5B58;&#x5173;&#x7CFB;&#xFF0C;&#x56FE;&#x4E2D;&#x5B9E;&#x7EBF;&#x662F; super_class &#x6307;&#x9488;&#xFF0C;&#x865A;&#x7EBF;&#x662F; isa &#x6307;&#x9488;&#xFF0C;&#x7C7B;&#x5BF9;&#x8C61;&#x5B58;&#x653E;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#xFF0C;&#x5143;&#x7C7B;&#x5BF9;&#x8C61;&#x5B58;&#x653E;&#x7C7B;&#x65B9;&#x6CD5;&#x3002;</p>
+<ul>
+<li>&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x7684; isa &#x6307;&#x5411;&#x7C7B;&#x5BF9;&#x8C61;&#xFF08;&#x7C7B;&#x4E5F;&#x662F;&#x5BF9;&#x8C61;&#xFF0C;&#x9762;&#x5411;&#x5BF9;&#x8C61;&#x4E2D;&#x4E00;&#x5207;&#x90FD;&#x662F;&#x5BF9;&#x8C61;&#xFF09;</li>
+<li>&#x7C7B;&#x5BF9;&#x8C61;&#x7684; isa &#x6307;&#x5411;&#x5143;&#x7C7B;&#x5BF9;&#x8C61;</li>
+<li>Root class (class) &#x5176;&#x5B9E;&#x5C31;&#x662F; NSObject&#xFF0C;NSObject &#x662F;&#x6CA1;&#x6709;&#x8D85;&#x7C7B;&#x7684;&#xFF0C;&#x6240;&#x4EE5; Root class(class) &#x7684; superclass &#x6307;&#x5411; nil&#x3002;</li>
+<li>Root class(meta) &#x7684; superclass &#x6307;&#x5411; Root class(class)&#xFF0C;&#x4E5F;&#x5C31;&#x662F; NSObject&#xFF0C;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x56DE;&#x8DEF;&#x3002;</li>
+<li>&#x6BCF;&#x4E2A; Meta class &#x7684; isa &#x6307;&#x9488;&#x90FD;&#x6307;&#x5411; Root class (meta)&#x3002;</li>
+</ul>
+<p>&#x8FD9;&#x91CC;&#x8BB2;&#x89E3;&#x4E00;&#x4E0B; FLEXRuntimeUtility &#x7684;&#x76F8;&#x5173;&#x5E94;&#x7528;</p>
+<h4 id="&#x5C5E;&#x6027;">&#x5C5E;&#x6027;</h4>
+<p>&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x5C5E;&#x6027;</p>
+<pre><code class="lang-objc">objc_property_t *propertyList = class_copyPropertyList(class, &amp;propertyCount);
+</code></pre>
+<p>&#x5047;&#x5982;</p>
+<pre><code class="lang-objc"><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">readonly</span>, <span class="hljs-keyword">copy</span>) <span class="hljs-built_in">NSString</span> *debugDescription;
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x5C5E;&#x6027;&#x7684;&#x540D;&#x5B57;</p>
+<pre><code class="lang-objc"><span class="hljs-built_in">NSString</span> *name = @(property_getName(property));
+</code></pre>
+<p>&#x6839;&#x636E;&#x5C5E;&#x6027;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x8FD9;&#x4E2A;&#x5C5E;&#x6027;&#x7684;&#x76F8;&#x5173;&#x7279;&#x6027;</p>
+<pre><code class="lang-objc"><span class="hljs-built_in">NSString</span> *attributes = @(property_getAttributes(property));
+</code></pre>
+<p>&#x503C;&#x4E3A;</p>
+<pre>
+T@&quot;NSString&quot;,R,C
+</pre>
+
+<p>&#x8FD9;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x610F;&#x4E49;&#x53EF;&#x4EE5;&#x67E5;&#x770B;<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html#//apple_ref/doc/uid/TP40008048-CH101-SW6" target="_blank">&#x53C2;&#x8003;</a>
+&#x6BD4;&#x5982;T&#x5C31;&#x662F;&#x5C5E;&#x6027;&#x7684;&#x7C7B;&#x578B;&#xFF0C;R&#x5C31;&#x662F;read-only,C&#x5C31;&#x662F;copy</p>
+<p>&#x53E6;&#x5916;&#x8FD8;&#x53EF;&#x4EE5;&#x52A8;&#x6001;&#x6DFB;&#x52A0;&#x5C5E;&#x6027;</p>
+<pre><code class="lang-objc">class_addProperty(theClass, name, attributes, totalAttributesCount);
+</code></pre>
+<h4 id="&#x5B9E;&#x4F8B;&#x53D8;&#x91CF;">&#x5B9E;&#x4F8B;&#x53D8;&#x91CF;</h4>
+<p>&#x83B7;&#x53D6;&#x5B9E;&#x4F8B;&#x53D8;&#x91CF;</p>
+<pre><code class="lang-objc">Ivar *ivarList = class_copyIvarList(class, &amp;ivarCount);
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x5B9E;&#x4F8B;&#x53D8;&#x91CF;&#x7684;&#x7C7B;&#x578B;</p>
+<pre><code class="lang-objc"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *type = ivar_getTypeEncoding(ivar);
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x53D8;&#x91CF;&#x7684;&#x503C;</p>
+<pre><code class="lang-objc">value = object_getIvar(object, ivar);
+</code></pre>
+<h4 id="&#x65B9;&#x6CD5;">&#x65B9;&#x6CD5;</h4>
+<p>&#x83B7;&#x53D6;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-objc">Class class = [<span class="hljs-keyword">self</span>.object class];
+Method *methodList = class_copyMethodList(class, &amp;methodCount);
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x7C7B;&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-objc"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *className = [<span class="hljs-built_in">NSStringFromClass</span>([<span class="hljs-keyword">self</span>.object class]) UTF8String];
+
+Class metaClass = objc_getMetaClass(className);
+Method *methodList = class_copyMethodList(metaClass, &amp;methodCount);
+</code></pre>
+<p>&#x83B7;&#x53D6; selector &#x540D;&#x5B57;</p>
+<pre><code class="lang-objc"><span class="hljs-built_in">NSString</span> *selectorName = <span class="hljs-built_in">NSStringFromSelector</span>(method_getName(method));
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;</p>
+<pre><code class="lang-objc"><span class="hljs-keyword">char</span> *returnType = method_copyReturnType(method);
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x53C2;&#x6570;&#x7C7B;&#x578B;</p>
+<pre><code class="lang-objc"><span class="hljs-keyword">char</span> *argType = method_copyArgumentType(method, argIndex);
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x7684; Type &#x662F; type encoding &#x4E4B;&#x540E;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x6BD4;&#x5982;&#x5982;&#x679C;&#x662F; BOOL &#x7C7B;&#x578B;&#xFF0C;&#x8FD9;&#x91CC; argType &#x5C06;&#x662F; &quot;B&quot;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x4F1A;&#x5C06; @encode(BOOL) &#x4E4B;&#x540E;&#x7684;&#x7ED3;&#x679C;&#x4E0E; B &#x5BF9;&#x6BD4;&#xFF0C;&#x76F8;&#x540C;&#x5219;&#x8868;&#x793A;&#x4E3A; BOOL &#x7C7B;&#x578B;&#x3002;</p>
+<p>&#x6700;&#x540E;&#xFF0C;&#x6587;&#x7AE0;&#x5230;&#x8FD9;&#x5C31;&#x7ED3;&#x675F;&#x4E86;&#xFF0C;FLEX &#x662F; iOS &#x4E2D;&#x4E00;&#x4E2A;&#x6BD4;&#x8F83;&#x7279;&#x6B8A;&#x7684;&#x5E93;&#xFF0C;&#x5F88;&#x5C11;&#x6709;&#x4EBA;&#x53BB;&#x505A; App &#x5185;&#x8C03;&#x8BD5;&#x76F8;&#x5173;&#x7684;&#x4E1C;&#x897F;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x91CC;&#x5C31;&#x53EF;&#x4EE5;&#x628A; App &#x7684;&#x8C03;&#x8BD5;&#x6846;&#x67B6;&#x642D;&#x8D77;&#x6765;&#x4E86;&#xFF0C;&#x800C;&#x4E14; FLEX &#x5173;&#x4E8E; runtime &#x7684;&#x5E94;&#x7528;&#x53EF;&#x8C13;&#x5230;&#x4E86;&#x4E00;&#x4E2A;&#x6781;&#x81F4;&#xFF0C;&#x5B66;&#x4E60; runtime &#x4E5F;&#x53EF;&#x4EE5;&#x591A;&#x770B;&#x8FD9;&#x4E2A;&#x5E93;&#x3002;</p>
+<p>&#x672C;&#x6587;&#x4F5C;&#x8005;<a href="https://github.com/coderyi" target="_blank">coderyi</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../SGDownload/SGDownload.html" class="navigation navigation-prev " aria-label="Previous page: SGDownload">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../KSCrash/KSCrash.html" class="navigation navigation-next " aria-label="Next page: KSCrash">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"FLEX","level":"1.6","depth":1,"next":{"title":"KSCrash","level":"1.7","depth":1,"path":"article/KSCrash/KSCrash.md","ref":"article/KSCrash/KSCrash.md","articles":[]},"previous":{"title":"SGDownload","level":"1.5","depth":1,"path":"article/SGDownload/SGDownload.md","ref":"article/SGDownload/SGDownload.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"coderyi","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"iOS开源库源码分析","language":"zh-hans","gitbook":"3.2.3","description":""},"file":{"path":"article/FLEX/FLEX.md","mtime":"2021-03-16T01:57:43.146Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-16T02:07:22.736Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
